@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="501 transparent fractional five-star PNGs, ready for Google Sheets IMAGE().">
+  <title>Fractional Stars · PNGs for Google Sheets</title>
+  <style>
+    :root { color-scheme: light; font-family: system-ui, sans-serif; color: #203047; background: #f6f8fb; }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    main { max-width: 850px; margin: 0 auto; padding: 64px 24px; }
+    .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; color: #81600b; }
+    h1 { font-size: clamp(36px, 7vw, 58px); letter-spacing: -.045em; margin: 14px 0; line-height: 1.08; }
+    h2 { font-size: 21px; margin-top: 0; }
+    p, li { line-height: 1.65; }
+    .intro { max-width: 630px; color: #55647a; font-size: 18px; }
+    section { background: white; border: 1px solid #dce3eb; border-radius: 18px; padding: 28px; margin: 24px 0; }
+    .preview { background: repeating-conic-gradient(#f1f4f8 0% 25%, white 0% 50%) 50% / 20px 20px; border-radius: 12px; padding: 28px 12px; margin: 20px 0; }
+    .preview img { display: block; width: 100%; max-width: 580px; height: auto; margin: auto; }
+    .controls { display: flex; align-items: center; gap: 16px; }
+    input[type="range"] { flex: 1; min-width: 0; accent-color: #b87500; }
+    input[type="number"] { width: 95px; }
+    input[type="number"], input[type="url"] { border: 1px solid #abb9cb; border-radius: 7px; padding: 11px; font: inherit; }
+    input[type="url"] { display: block; width: 100%; margin: 10px 0 16px; }
+    label { font-weight: 600; }
+    pre { white-space: pre-wrap; overflow-wrap: anywhere; background: #f1f4f8; border-radius: 9px; padding: 16px; line-height: 1.6; }
+    code { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 13px; }
+    a { color: #2360a3; overflow-wrap: anywhere; }
+    button { border: 0; border-radius: 7px; padding: 11px 16px; background: #203047; color: white; font: inherit; cursor: pointer; }
+    button:hover { background: #364c69; }
+    :focus-visible { outline: 3px solid #b87500; outline-offset: 3px; }
+    .hint, footer { color: #637086; font-size: 14px; }
+    #status { margin-left: 12px; }
+    footer { line-height: 1.7; }
+    @media (max-width: 500px) { main { padding: 36px 16px; } section { padding: 20px; } }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="eyebrow">Google Sheets, meet fractional stars</div>
+    <h1>Every hundredth.<br>Five perfect stars.</h1>
+    <p class="intro">A ready-made PNG for every rating from 0.00 to 5.00. Gold fill, gray empty stars, and a transparent background. Just choose the URL with a formula.</p>
+    <section aria-labelledby="preview-title">
+      <h2 id="preview-title">Try a rating</h2>
+      <p>4.37 fills four whole stars and exactly 37% of the fifth star’s width, from left to right.</p>
+      <div class="preview"><img id="stars" src="stars/4.37.png" width="580" height="116" alt="4.37 out of 5 stars"></div>
+      <div class="controls">
+        <label for="rating">Rating</label>
+        <input id="slider" type="range" min="0" max="5" step="0.01" value="4.37" aria-label="Rating slider">
+        <input id="rating" type="number" min="0" max="5" step="0.01" value="4.37">
+      </div>
+      <p class="hint">The checkerboard shows transparency; it is not part of the PNG.</p>
+      <p><a id="asset-link" href="stars/4.37.png">Open stars/4.37.png</a></p>
+      <noscript><p>Preview controls require JavaScript. All PNG URLs and the formulas below work independently.</p></noscript>
+    </section>
+    <section aria-labelledby="formula-title">
+      <h2 id="formula-title">Put it in your spreadsheet</h2>
+      <label for="base-url">Your published site URL</label>
+      <input id="base-url" type="url" value="https://YOUR-USERNAME.github.io/YOUR-REPO/" spellcheck="false">
+      <p class="hint">After publishing, this page fills in its own URL. Include your repository path, or use your custom domain.</p>
+      <p>For a numeric rating in <code>A2</code>:</p>
+      <pre><code id="single-formula">=IF(ISNUMBER(A2),IMAGE("https://YOUR-USERNAME.github.io/YOUR-REPO/stars/"&amp;SUBSTITUTE(TEXT(ROUND(MAX(0,MIN(5,A2)),2),"0.00"),",",".")&amp;".png"),"")</code></pre>
+      <button id="copy" type="button">Copy formula</button><span id="status" role="status"></span>
+      <p>For the average of the numeric ratings in <code>Ratings!B2:B</code>:</p>
+      <pre><code id="average-formula">=IF(COUNT(Ratings!B2:B)=0,"",IMAGE("https://YOUR-USERNAME.github.io/YOUR-REPO/stars/"&amp;SUBSTITUTE(TEXT(ROUND(MAX(0,MIN(5,AVERAGE(Ratings!B2:B))),2),"0.00"),",",".")&amp;".png"))</code></pre>
+      <p class="hint">Formulas round to two decimals, limit ratings to 0–5, and leave empty inputs blank. Adjust the row height and column width for the stars. If your sheet uses semicolons as argument separators, replace separators outside quotation marks; leave quoted text unchanged.</p>
+    </section>
+    <section aria-labelledby="publish-title">
+      <h2 id="publish-title">Publish on GitHub Pages</h2>
+      <ol>
+        <li>Put this project’s contents in a GitHub repository, including <code>stars/</code> and <code>.nojekyll</code>. Keep <code>index.html</code> at the repository root.</li>
+        <li>Open <strong>Settings → Pages</strong>. Choose <strong>Deploy from a branch</strong>, then <strong>main</strong> and <strong>/(root)</strong>. Save.</li>
+        <li>Wait for the deployment, open your published site, and copy the formula above into Google Sheets.</li>
+      </ol>
+      <p>File pattern: <code>stars/0.00.png</code> through <code>stars/5.00.png</code>. Always include two decimal places, even for whole numbers.</p>
+      <p class="hint">All 501 images are included. Hosting needs no build step, server, API key, or Apps Script.</p>
+    </section>
+    <footer>
+      PNGs are 580 × 116 pixels with antialiased edges. Fractional fill measures horizontal width, not the star’s area.<br>
+      Reference: <a href="https://support.google.com/docs/answer/3093333?hl=en">Google Sheets IMAGE documentation</a> · <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site">GitHub Pages publishing guide</a>
+    </footer>
+  </main>
+  <script>
+    const rating = document.getElementById('rating');
+    const slider = document.getElementById('slider');
+    const stars = document.getElementById('stars');
+    const assetLink = document.getElementById('asset-link');
+    const baseUrl = document.getElementById('base-url');
+    const singleFormula = document.getElementById('single-formula');
+    const averageFormula = document.getElementById('average-formula');
+    const status = document.getElementById('status');
+
+    function updateRating(value, normalizeInput = true) {
+      if (value === '' || !Number.isFinite(Number(value))) return;
+      const rounded = (Math.round(Math.max(0, Math.min(5, Number(value))) * 100) / 100).toFixed(2);
+      if (normalizeInput) rating.value = rounded;
+      slider.value = rounded;
+      stars.src = `stars/${rounded}.png`;
+      stars.alt = `${rounded} out of 5 stars`;
+      assetLink.href = stars.src;
+      assetLink.textContent = `Open stars/${rounded}.png`;
+    }
+
+    function updateFormulas() {
+      status.textContent = '';
+      try {
+        const base = new URL(baseUrl.value);
+        if (!['https:', 'http:'].includes(base.protocol) || base.search || base.hash || base.username || base.password) throw new Error();
+        base.pathname = base.pathname.replace(/\/*$/, '/');
+        const assetBase = new URL('stars/', base).href.replaceAll('"', '""');
+        singleFormula.textContent = `=IF(ISNUMBER(A2),IMAGE("${assetBase}"&SUBSTITUTE(TEXT(ROUND(MAX(0,MIN(5,A2)),2),"0.00"),",",".")&".png"),"")`;
+        averageFormula.textContent = `=IF(COUNT(Ratings!B2:B)=0,"",IMAGE("${assetBase}"&SUBSTITUTE(TEXT(ROUND(MAX(0,MIN(5,AVERAGE(Ratings!B2:B))),2),"0.00"),",",".")&".png"))`;
+        document.getElementById('copy').disabled = false;
+      } catch {
+        status.textContent = 'Enter a valid site URL without a query or fragment.';
+        document.getElementById('copy').disabled = true;
+      }
+    }
+
+    if (location.protocol === 'https:' || location.protocol === 'http:') {
+      baseUrl.value = new URL('./', location.href).href;
+    }
+    slider.addEventListener('input', () => updateRating(slider.value));
+    rating.addEventListener('input', () => updateRating(rating.value, false));
+    rating.addEventListener('change', () => updateRating(rating.value));
+    baseUrl.addEventListener('input', updateFormulas);
+    document.getElementById('copy').addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(singleFormula.textContent);
+        status.textContent = 'Copied!';
+      } catch {
+        const selection = window.getSelection();
+        const range = document.createRange();
+        range.selectNodeContents(singleFormula);
+        selection.removeAllRanges();
+        selection.addRange(range);
+        status.textContent = 'Formula selected. Press Ctrl+C or ⌘C to copy.';
+      }
+    });
+    updateFormulas();
+  </script>
+</body>
+</html>
